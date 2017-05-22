@@ -11,7 +11,8 @@ RUN yum-config-manager --add-repo https://openresty.org/yum/centos/OpenResty.rep
 
 ENV PATH /usr/local/openresty/nginx/sbin/:$PATH
 
-RUN wget http://luarocks.github.io/luarocks/releases/luarocks-2.4.2.tar.gz &&\
+RUN cd /tmp &&\
+	wget http://luarocks.github.io/luarocks/releases/luarocks-2.4.2.tar.gz &&\
 	tar -xzvf luarocks-2.4.2.tar.gz &&\
 	cd luarocks-2.4.2 &&\
 	./configure --prefix=/usr/local/openresty/luajit \
@@ -20,6 +21,8 @@ RUN wget http://luarocks.github.io/luarocks/releases/luarocks-2.4.2.tar.gz &&\
     	--with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 &&\
     make &&\
     make install
+
+ENV PATH /usr/local/openresty/luajit/bin/:$PATH
 
 ADD ./nginx/* /etc/nginx/
 RUN mkdir /var/log/nginx
