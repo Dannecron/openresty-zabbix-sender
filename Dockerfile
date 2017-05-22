@@ -27,4 +27,4 @@ ENV PATH /usr/local/openresty/luajit/bin/:$PATH
 ADD ./nginx/* /etc/nginx/
 RUN mkdir /var/log/nginx
 
-RUN nginx -c /etc/nginx/nginx.conf
+CMD ["nginx",  "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]
